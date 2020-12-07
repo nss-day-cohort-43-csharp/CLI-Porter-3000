@@ -48,13 +48,13 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "3":
                         Add();
                         return this;
-                    //case "4":
-                    //    Edit();
-                    //    return this;
-                    //case "5":
-                    //    Remove();
-                    //    return this;
-                    case "0":
+                //case "4":
+                //    Edit();
+                //    return this;
+                case "5":
+                    Remove();
+                    return this;
+                case "0":
                         return _parentUI;
                     default:
                         Console.WriteLine("Invalid Selection");
@@ -71,36 +71,36 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        //private Author Choose(string prompt = null)
-        //{
-        //    if (prompt == null)
-        //    {
-        //        prompt = "Please choose an Author:";
-        //    }
+        private JournalEntry Choose(string prompt = null)
+        {
+            if (prompt == null)
+            {
+                prompt = "Please choose an entry:";
+            }
 
-        //    Console.WriteLine(prompt);
+            Console.WriteLine(prompt);
 
-        //    List<Author> authors = _authorRepository.GetAll();
+            List<JournalEntry> entries = _journalRepository.GetAll();
 
-        //    for (int i = 0; i < authors.Count; i++)
-        //    {
-        //        Author author = authors[i];
-        //        Console.WriteLine($" {i + 1}) {author.FullName}");
-        //    }
-        //    Console.Write("> ");
+            for (int i = 0; i < entries.Count; i++)
+            {
+                JournalEntry entry = entries[i];
+                Console.WriteLine($" {i + 1}) {entry.Title}");
+            }
+            Console.Write("> ");
 
-        //    string input = Console.ReadLine();
-        //    try
-        //    {
-        //        int choice = int.Parse(input);
-        //        return authors[choice - 1];
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Invalid Selection");
-        //        return null;
-        //    }
-        //}
+            string input = Console.ReadLine();
+            try
+            {
+                int selection = int.Parse(input);
+                return entries[selection - 1];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
+        }
 
         private void Add()
             {
@@ -117,45 +117,48 @@ namespace TabloidCLI.UserInterfaceManagers
 
                 _journalRepository.Insert(entry);
             }
+        private void Remove()
+        {
+            JournalEntry entryToDelete = Choose("Which entry would you like to remove?");
+            if (entryToDelete != null)
+            {
+                _journalRepository.Delete(entryToDelete.Id);
+            }
+        }
 
-            //private void Edit()
-            //{
-            //    Author authorToEdit = Choose("Which author would you like to edit?");
-            //    if (authorToEdit == null)
-            //    {
-            //        return;
-            //    }
+       
 
-            //    Console.WriteLine();
-            //    Console.Write("New first name (blank to leave unchanged: ");
-            //    string firstName = Console.ReadLine();
-            //    if (!string.IsNullOrWhiteSpace(firstName))
-            //    {
-            //        authorToEdit.FirstName = firstName;
-            //    }
-            //    Console.Write("New last name (blank to leave unchanged: ");
-            //    string lastName = Console.ReadLine();
-            //    if (!string.IsNullOrWhiteSpace(lastName))
-            //    {
-            //        authorToEdit.LastName = lastName;
-            //    }
-            //    Console.Write("New bio (blank to leave unchanged: ");
-            //    string bio = Console.ReadLine();
-            //    if (!string.IsNullOrWhiteSpace(bio))
-            //    {
-            //        authorToEdit.Bio = bio;
-            //    }
+        //private void Edit()
+        //{
+        //    Author authorToEdit = Choose("Which author would you like to edit?");
+        //    if (authorToEdit == null)
+        //    {
+        //        return;
+        //    }
 
-            //    _authorRepository.Update(authorToEdit);
-            //}
+        //    Console.WriteLine();
+        //    Console.Write("New first name (blank to leave unchanged: ");
+        //    string firstName = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(firstName))
+        //    {
+        //        authorToEdit.FirstName = firstName;
+        //    }
+        //    Console.Write("New last name (blank to leave unchanged: ");
+        //    string lastName = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(lastName))
+        //    {
+        //        authorToEdit.LastName = lastName;
+        //    }
+        //    Console.Write("New bio (blank to leave unchanged: ");
+        //    string bio = Console.ReadLine();
+        //    if (!string.IsNullOrWhiteSpace(bio))
+        //    {
+        //        authorToEdit.Bio = bio;
+        //    }
 
-            //private void Remove()
-            //{
-            //    Author authorToDelete = Choose("Which author would you like to remove?");
-            //    if (authorToDelete != null)
-            //    {
-            //        _authorRepository.Delete(authorToDelete.Id);
-            //    }
-            //}
-}
+        //    _authorRepository.Update(authorToEdit);
+        //}
+
+
+    }
 }
