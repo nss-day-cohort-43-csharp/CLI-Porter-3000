@@ -22,20 +22,34 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Title, Url FROM Blog WHERE Id = @id";
+                    cmd.CommandText = @"SELECT blog.Id As BlogId, blog.Title, blog.Url, tag.Id As TagId, tag.Name FROM Blog
+                                           LEFT JOIN BlogTag blogtag  on blog.Id = BlogTag.BlogId
+                                           LEFT JOIN Tag tag on tag.Id = blogtag.TagId
+                                           WHERE blog.id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
+           
                     Blog blog = null;
 
-                    if (reader.Read())
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
                     {
-                        blog = new Blog
+                        if (blog == null)
                         {
-                            Id = id,
-                            Title = reader.GetString(reader.GetOrdinal("Title")),
-                            Url = reader.GetString(reader.GetOrdinal("Url"))
-                        };
+                            blog = new Blog
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("BlogId")),
+                                Title = reader.GetString(reader.GetOrdinal("Title")),
+                                Url = reader.GetString(reader.GetOrdinal("Url"))
+                            };
+                        }
+                        if(!reader.IsDBNull(reader.GetOrdinal("TagId")))
+                        {
+                            blog.Tags.Add(new Tag()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("TagId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            });
+                        }
                     }
 
                     reader.Close();
@@ -106,10 +120,10 @@ namespace TabloidCLI.Repositories
                 {
                     cmd.CommandText = @"UPDATE Blog
                                         SET Title = @title,
-                                            Url = @url,
-                                      WHERE Id = @id";
+                                            Url = @url
+                                      WHERE id = @id";
                     cmd.Parameters.AddWithValue("@title", blog.Title);
-                    cmd.Parameters.AddWithValue("@title", blog.Url);
+                    cmd.Parameters.AddWithValue("@url", blog.Url);
                     cmd.Parameters.AddWithValue("@id", blog.Id);
 
                     cmd.ExecuteNonQuery();
