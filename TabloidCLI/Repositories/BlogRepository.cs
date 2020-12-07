@@ -17,7 +17,32 @@ namespace TabloidCLI.Repositories
 
         public Blog Get(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Title, Url FROM Blog WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Blog blog = null;
+
+                    if (reader.Read())
+                    {
+                        blog = new Blog
+                        {
+                            Id = id,
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Url = reader.GetString(reader.GetOrdinal("Url"))
+                        };
+                    }
+
+                    reader.Close();
+                    return blog;
+                }
+
+            }
         }
 
         public List<Blog> GetAll()
@@ -51,14 +76,45 @@ namespace TabloidCLI.Repositories
             }
         }
 
-        public void Insert(Blog entry)
+        public void Insert(Blog blog)
         {
-            
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    //Inserting a blog into the database and the database is adding an id and adding the values title and blog
+                    cmd.CommandText = @"INSERT INTO Blog (Title, Url)
+                                       OUTPUT INSERTED.Id
+                                        VALUES (@title, @url)";
+                    cmd.Parameters.AddWithValue("@title", blog.Title);
+                    cmd.Parameters.AddWithValue("@url", blog.Url);
+                    //this is executing the query 
+                    int id = (int)cmd.ExecuteScalar();
+
+                    blog.Id = id;
+                }
+            }
         }
 
-        public void Update(Blog entry)
+        public void Update(Blog blog)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Blog
+                                        SET Title = @title,
+                                            Url = @url,
+                                      WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@title", blog.Title);
+                    cmd.Parameters.AddWithValue("@title", blog.Url);
+                    cmd.Parameters.AddWithValue("@id", blog.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
      

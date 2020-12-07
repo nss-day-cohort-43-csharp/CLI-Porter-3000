@@ -34,6 +34,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     List();
                     return this;
+                case "2":
+                    Add();
+                    return this;
                 default:
                     Console.WriteLine("Invalid Selection");
                     return this;
@@ -47,6 +50,21 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine(blog);
             }
+        }
+
+        private void Add()
+            {
+            Console.WriteLine("New Blog");
+            Blog blog = new Blog();
+
+            Console.WriteLine("Title: ");
+            blog.Title = Console.ReadLine();
+
+            Console.WriteLine("Url: ");
+            blog.Url = Console.ReadLine();
+
+            _blogRepository.Insert(blog);
+
         }
     }
 }
