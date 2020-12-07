@@ -23,9 +23,9 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine("\nJournal Menu");
                 Console.WriteLine(" 1) List Entries");
-                Console.WriteLine(" 3) Add Entry");
-                Console.WriteLine(" 4) Edit Entry");
-                Console.WriteLine(" 5) Remove Entry");
+                Console.WriteLine(" 2) Add Entry");
+                Console.WriteLine(" 3) Edit Entry");
+                Console.WriteLine(" 4) Remove Entry");
                 Console.WriteLine(" 0) Go Back");
 
                 Console.Write("> ");
@@ -35,23 +35,14 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     List();
                     return this;
-                //case "2":
-                //    JournalEntry entry = Choose();
-                //    if (entry == null)
-                //    {
-                //        return this;
-                //    }
-                //    else
-                //    {
-                //        return new AuthorDetailManager(this, _connectionString, author.Id);
-                //    }
-                case "3":
+                
+                case "2":
                         Add();
                         return this;
-                //case "4":
-                //    Edit();
-                //    return this;
-                case "5":
+                case "3":
+                    Edit();
+                    return this;
+                case "4":
                     Remove();
                     return this;
                 case "0":
@@ -59,8 +50,20 @@ namespace TabloidCLI.UserInterfaceManagers
                     default:
                         Console.WriteLine("Invalid Selection");
                         return this;
-                }
+
+
+                    //case "2":
+                    //    JournalEntry entry = Choose();
+                    //    if (entry == null)
+                    //    {
+                    //        return this;
+                    //    }
+                    //    else
+                    //    {
+                    //        return new AuthorDetailManager(this, _connectionString, author.Id);
+                    //    }
             }
+        }
 
         private void List()
         {
@@ -126,39 +129,29 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-       
+        private void Edit()
+        {
+            JournalEntry entryToEdit = Choose("Which author would you like to edit?");
+            if (entryToEdit == null)
+            {
+                return;
+            }
 
-        //private void Edit()
-        //{
-        //    Author authorToEdit = Choose("Which author would you like to edit?");
-        //    if (authorToEdit == null)
-        //    {
-        //        return;
-        //    }
-
-        //    Console.WriteLine();
-        //    Console.Write("New first name (blank to leave unchanged: ");
-        //    string firstName = Console.ReadLine();
-        //    if (!string.IsNullOrWhiteSpace(firstName))
-        //    {
-        //        authorToEdit.FirstName = firstName;
-        //    }
-        //    Console.Write("New last name (blank to leave unchanged: ");
-        //    string lastName = Console.ReadLine();
-        //    if (!string.IsNullOrWhiteSpace(lastName))
-        //    {
-        //        authorToEdit.LastName = lastName;
-        //    }
-        //    Console.Write("New bio (blank to leave unchanged: ");
-        //    string bio = Console.ReadLine();
-        //    if (!string.IsNullOrWhiteSpace(bio))
-        //    {
-        //        authorToEdit.Bio = bio;
-        //    }
-
-        //    _authorRepository.Update(authorToEdit);
-        //}
-
-
+            Console.WriteLine();
+            Console.Write("New Title (blank to leave unchanged: ");
+            string editedTitle = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(editedTitle))
+            {
+                entryToEdit.Title = editedTitle;
+            }
+            Console.Write("New Content (blank to leave unchanged: ");
+            string editedContent = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(editedContent))
+            {
+                entryToEdit.Content = editedContent;
+            }
+            
+            _journalRepository.Update(entryToEdit);
+        }
     }
 }

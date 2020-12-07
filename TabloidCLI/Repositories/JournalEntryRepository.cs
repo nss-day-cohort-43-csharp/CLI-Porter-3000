@@ -122,16 +122,14 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    //cmd.CommandText = @"UPDATE Author 
-                    //                       SET FirstName = @firstName,
-                    //                           LastName = @lastName,
-                    //                           bio = @bio
-                    //                     WHERE id = @id";
+                    cmd.CommandText = @"UPDATE Journal 
+                                           SET Title = @editedTitle,
+                                               Content = @editedContent
+                                         WHERE id = @id";
 
-                    //cmd.Parameters.AddWithValue("@firstName", author.FirstName);
-                    //cmd.Parameters.AddWithValue("@lastName", author.LastName);
-                    //cmd.Parameters.AddWithValue("@bio", author.Bio);
-                    //cmd.Parameters.AddWithValue("@id", author.Id);
+                    cmd.Parameters.AddWithValue("@editedTitle", entry.Title);
+                    cmd.Parameters.AddWithValue("@editedContent", entry.Content);
+                    cmd.Parameters.AddWithValue("@id", entry.Id);
 
                     cmd.ExecuteNonQuery();
                 }
