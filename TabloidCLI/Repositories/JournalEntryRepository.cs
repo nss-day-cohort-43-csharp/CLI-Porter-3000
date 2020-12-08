@@ -58,10 +58,6 @@ namespace TabloidCLI.Repositories
                                                Content,
                                                CreateDateTime,
                                           FROM Journal";
-                                         //      LEFT JOIN AuthorTag at on a.Id = at.AuthorId
-                                         //      LEFT JOIN Tag t on t.Id = at.TagId
-                                         //WHERE a.id = @id";
-
                     cmd.Parameters.AddWithValue("@id", id);
 
                     JournalEntry entry = null;
@@ -79,19 +75,9 @@ namespace TabloidCLI.Repositories
                                 CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime")),
                             };
                         }
-
-                        //if (!reader.IsDBNull(reader.GetOrdinal("TagId")))
-                        //{
-                        //    entry.Tags.Add(new Tag()
-                        //    {
-                        //        Id = reader.GetInt32(reader.GetOrdinal("TagId")),
-                        //        Name = reader.GetString(reader.GetOrdinal("Name")),
-                        //    });
-                        //}
                     }
 
                     reader.Close();
-
                     return entry;
                 }
             }
@@ -150,39 +136,5 @@ namespace TabloidCLI.Repositories
                 }
             }
         }
-
-        //public void InsertTag(Author author, Tag tag)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"INSERT INTO AuthorTag (AuthorId, TagId)
-        //                                               VALUES (@authorId, @tagId)";
-        //            cmd.Parameters.AddWithValue("@authorId", author.Id);
-        //            cmd.Parameters.AddWithValue("@tagId", tag.Id);
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
-
-        //public void DeleteTag(int authorId, int tagId)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"DELETE FROM AuthorTAg 
-        //                             WHERE AuthorId = @authorid AND 
-        //                                   TagId = @tagId";
-        //            cmd.Parameters.AddWithValue("@authorId", authorId);
-        //            cmd.Parameters.AddWithValue("@tagId", tagId);
-
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
     }
 }

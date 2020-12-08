@@ -102,7 +102,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 int selection = int.Parse(input);
                 return entries[selection - 1];
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Invalid Selection");
                 return null;
