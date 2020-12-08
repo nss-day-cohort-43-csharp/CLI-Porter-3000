@@ -24,7 +24,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("[5] = Black");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("[6] = White");
-            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("");
             string backgroundColorChoice = Console.ReadLine();
 
@@ -53,56 +52,6 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.ForegroundColor = ConsoleColor.White;
                     break;
                     ;
-                //case "7":
-                //    Console.BackgroundColor = ConsoleColor.Gray;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "8":
-                //    Console.BackgroundColor = ConsoleColor.Cyan;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "9":
-                //    Console.BackgroundColor = ConsoleColor.Magenta;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "10":
-                //    Console.BackgroundColor = ConsoleColor.DarkRed;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "11":
-                //    Console.BackgroundColor = ConsoleColor.DarkYellow;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "12":
-                //    Console.BackgroundColor = ConsoleColor.DarkGreen;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "13":
-                //    Console.BackgroundColor = ConsoleColor.DarkBlue;
-                //    Console.ForegroundColor = ConsoleColor.White;
-                //    break;
-                //    ;
-                //case "14":
-                //    Console.BackgroundColor = ConsoleColor.DarkGray;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "15":
-                //    Console.BackgroundColor = ConsoleColor.DarkCyan;
-                //    Console.ForegroundColor = ConsoleColor.Black;
-                //    break;
-                //    ;
-                //case "16":
-                //    Console.BackgroundColor = ConsoleColor.DarkMagenta;
-                //    Console.ForegroundColor = ConsoleColor.White;
-                //    break;
-                //    ;
                 default:
                     Console.WriteLine("Invalid Selection");
                     break;
