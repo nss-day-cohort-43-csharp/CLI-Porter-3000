@@ -4,10 +4,12 @@ using System.Text;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
+
 namespace TabloidCLI.UserInterfaceManagers
 {
     class JournalEntryManager : IUserInterfaceManager
     {
+        
         private readonly IUserInterfaceManager _parentUI;
         private JournalEntryRepository _journalRepository;
         private string _connectionString;
@@ -21,7 +23,9 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
             {
-                Console.WriteLine("\nJournal Menu");
+            
+            
+            Console.WriteLine("\nJournal Menu");
                 Console.WriteLine(" 1) List Entries");
                 Console.WriteLine(" 2) Add Entry");
                 Console.WriteLine(" 3) Edit Entry");

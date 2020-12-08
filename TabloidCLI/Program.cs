@@ -6,6 +6,9 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
+            BackgroundColors backgorundColorChoice = new BackgroundColors();
+            backgorundColorChoice.ColorSelection();
+
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
             while (ui != null)
