@@ -151,17 +151,7 @@ namespace TabloidCLI.Repositories
             }
         }
 
-        //cmd.CommandText = @"INSERT INTO Room (Name, MaxOccupancy) 
-        //                                 OUTPUT INSERTED.Id 
-        //                                 VALUES (@name, @maxOccupancy)";
-        //            cmd.Parameters.AddWithValue("@name", room.Name);
-        //            cmd.Parameters.AddWithValue("@maxOccupancy", room.MaxOccupancy);
-        //            int id = (int)cmd.ExecuteScalar();
-
-        //room.Id = id;
-
-
-
+   
         public void Update(Post post)
         {
             throw new NotImplementedException();
@@ -169,7 +159,17 @@ namespace TabloidCLI.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Post WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
