@@ -10,6 +10,8 @@ namespace TabloidCLI.UserInterfaceManagers
         private IUserInterfaceManager _parentUI;
         private BlogRepository _blogRepository;
         private TagRepository _tagRepository;
+        private PostRepository _postRepository;
+        private AuthorRepository _authorRepository;
         private int _blogId;
         private string tag;
 
@@ -19,7 +21,10 @@ namespace TabloidCLI.UserInterfaceManagers
             _parentUI = parentUI;
             _blogRepository = new BlogRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
+            _authorRepository = new AuthorRepository(connectionString);
             _blogId = blogId;
+            
 
         }
         public IUserInterfaceManager Execute()
@@ -29,6 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("1) View");
             Console.WriteLine("2) Add Tag");
             Console.WriteLine("3) Remove Tag");
+            Console.WriteLine("4) View Blog's Posts");
             Console.WriteLine("0) Go Back");
 
             Console.WriteLine(">");
@@ -40,6 +46,12 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
                 case "2":
                     AddTag();
+                    return this;
+                case "3":
+                    RemoveTag();
+                    return this;
+                case "4":
+                    ViewBlogsPosts();
                     return this;
                 case "0":
                     return _parentUI;
@@ -95,7 +107,46 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        public void RemoveTag()
+        {
+            // getting the blog by id
+            Blog blog = _blogRepository.Get(_blogId);
+            //ask the user which blog tag they want to remove
+            Console.WriteLine($"Which tag would you like to remove from {blog.Title}?");
+            //getting the list of tags an itrating through the list
+            List<Tag> tags = blog.Tags;
+            for (int i = 0; i < tags.Count; i++)
+            {
+                //tag equal the tag index
+                Tag tag = tags[i];
+                //displaying the tags that can be deleted
+                Console.WriteLine($"{i + 1} {tag.Name}");
+            }
+            Console.WriteLine(">");
+            //reading the input of the user
+            string input = Console.ReadLine();
+            //if the user inputs a number then the tag is deleted if not its invaild and the user is taken back to the detail blog menu
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _blogRepository.DeleteTag(blog.Id, tag.Id);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Invaild Selection. Won't be remove any tags");
+            }
+        }
 
+         public void ViewBlogsPosts()
+        {
+            List<Post> posts = _postRepository.GetByBlog(_blogId);
+            foreach (Post post in posts)
+            {
+                Console.WriteLine(post);
+            }
+            Console.WriteLine();
+        }
     }
 
 }
