@@ -20,8 +20,8 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("[3] = Green");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("[4] = Blue");
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("[5] = Black");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("[5] = Cyan");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("[6] = White");
             Console.WriteLine("");
@@ -45,7 +45,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     break;
                     ;
                 case "5":
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     break;
                     ;
                 case "6":
