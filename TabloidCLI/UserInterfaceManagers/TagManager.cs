@@ -78,7 +78,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 return;
             }
 
-            Console.Write("New Tag Name (blank to leave unchanged: ");
+            Console.Write("New Tag Name (blank to leave unchanged): ");
             string newTag = Console.ReadLine();
             if(!string.IsNullOrWhiteSpace(newTag))
             {
@@ -122,7 +122,11 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
-            throw new NotImplementedException();
+            Tag tagToDelete = Choose("Which tag would you like to remove?");
+            if (tagToDelete != null)
+            {
+                _tagRepository.Delete(tagToDelete.Id);
+            }
         }
     }
 }
