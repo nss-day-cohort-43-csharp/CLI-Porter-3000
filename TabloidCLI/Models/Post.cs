@@ -15,7 +15,7 @@ namespace TabloidCLI.Models
 
         public override string ToString()
         {
-            return $@"{Title} | ({Url})";
+            return $@"    {Id}) {Title} | {Url}  | {PublishDateTime}  | {Author.Id}  | {Blog.Id} )";
         }
     }
 }

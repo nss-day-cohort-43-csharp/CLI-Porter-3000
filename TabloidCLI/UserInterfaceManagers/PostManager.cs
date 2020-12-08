@@ -66,8 +66,60 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Url: ");
             post.Url = Console.ReadLine();
 
-            Console.Write("PublishDate: ");
+            Console.Write("Publication Date: ");
             post.PublishDateTime = DateTime.Parse(Console.ReadLine());
+
+            AuthorRepository authorRepo = new AuthorRepository(_connectionString);
+            List<Author> authors = authorRepo.GetAll();
+            while (true)
+            {
+                Console.WriteLine("Chose an Author");
+                for (int index = 0; index < authors.Count; index++)
+                {
+                    Author author = authors[index];
+                    Console.WriteLine($"{index + 1})  {author.FirstName}");
+
+                }
+                Console.Write(": ");
+                string answer = Console.ReadLine();
+                try
+                {
+                    int choice = int.Parse(answer);
+                    post.Author = authors[choice - 1];
+                    break;
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid Selection");
+                }
+            }
+
+            BlogRepository blogRepo = new BlogRepository(_connectionString);
+            List<Blog> blogs = blogRepo.GetAll();
+
+            while (true)
+            {
+                Console.WriteLine("Chose a Blog");
+                for (int index = 0; index < authors.Count; index++)
+                {
+                    Blog blog = blogs[index];
+                    Console.WriteLine($"{index + 1})  {blog.Title}");
+
+                }
+                Console.Write(": ");
+                string answer = Console.ReadLine();
+                try
+                {
+                    int choice = int.Parse(answer);
+                    post.Blog = blogs[choice - 1];
+                    break;
+                }
+                catch
+                {
+                    Console.WriteLine("Invalid Selection");
+                }
+            }
+
             _postRepository.Insert(post);
         }
 
