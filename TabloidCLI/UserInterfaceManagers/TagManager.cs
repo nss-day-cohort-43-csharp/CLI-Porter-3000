@@ -55,7 +55,7 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Tag> newTag = _tagRepository.GetAll();
             foreach (Tag tag in newTag)
             {
-                Console.WriteLine($"\nTag Name:  {tag.Name}");
+                Console.WriteLine($"Tag Name:  {tag.Name}");
             }
         }
 
