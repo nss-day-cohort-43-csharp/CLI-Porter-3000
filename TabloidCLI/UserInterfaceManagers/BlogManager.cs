@@ -73,20 +73,25 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private Blog Choose(string prompt = null)
         {
+            // if they don't enter a number it prompts the user to choose a blog
             if(prompt == null)
             {
                 prompt = "Please choose a blog:";
             }
-
+            //prompt a user to choose a blog
             Console.WriteLine(prompt);
+            //gets all the blogs and iterate through the list of blogs
             List<Blog> blogs = _blogRepository.GetAll();
             for(int i = 0; i < blogs.Count; i++)
             {
+                //blog is equal to the index number 
                 Blog blog = blogs[i];
+                //displays the blog title
                 Console.WriteLine($" {i + 1} {blog.Title}");
             }
             Console.Write(">");
             string input = Console.ReadLine();
+            //if they don't enter a number from the the list then it will say invalid selection and go back to blog menu
             try
             {
                 int choice = int.Parse(input);

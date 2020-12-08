@@ -1,4 +1,5 @@
-﻿using TabloidCLI.UserInterfaceManagers;
+﻿using System;
+using TabloidCLI.UserInterfaceManagers;
 
 namespace TabloidCLI
 {
@@ -6,6 +7,7 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
+
             BackgroundColors backgorundColorChoice = new BackgroundColors();
             backgorundColorChoice.ColorSelection();
 

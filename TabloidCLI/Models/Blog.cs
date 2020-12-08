@@ -9,6 +9,7 @@ namespace TabloidCLI.Models
         public string Url { get; set; }
         public List<Tag> Tags { get; set; } = new List<Tag>();
 
+         //overriding what the blog class displays
         public override string ToString()
         {
             return $"{Title} ({Url})";
