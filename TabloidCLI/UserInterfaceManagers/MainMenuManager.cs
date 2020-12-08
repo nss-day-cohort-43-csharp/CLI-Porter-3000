@@ -1,15 +1,16 @@
 ﻿using System;
 
-namespace TabloidCLI.UserInterfaceManagers
+namespace TabloidCLI.UserInterfaceManagers 
 {
     public class MainMenuManager : IUserInterfaceManager
     {
         private const string CONNECTION_STRING = 
             @"Data Source=localhost\SQLEXPRESS;Database=TabloidCLI;Integrated Security=True";
+       
 
         public IUserInterfaceManager Execute()
         {
-            Console.Write("Welcome to Tabloid");
+            
             Console.WriteLine("");
             Console.WriteLine("Main Menu");
             Console.WriteLine(" 1) Journal Management");
@@ -18,6 +19,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 4) Post Management");
             Console.WriteLine(" 5) Tag Management");
             Console.WriteLine(" 6) Search by Tag");
+            Console.WriteLine(" 7) Change Font Colors");
             Console.WriteLine(" 0) Exit");
 
             Console.Write("> ");
@@ -30,6 +32,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "4": throw new NotImplementedException();
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
+                case "7":  BackgroundColors backgorundColorChoice = new BackgroundColors();
+                            backgorundColorChoice.ColorSelection();
+                    return this;
                 case "0":
                     Console.WriteLine("Good bye");
                     return null;
