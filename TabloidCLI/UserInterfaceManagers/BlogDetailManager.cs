@@ -50,10 +50,13 @@ namespace TabloidCLI.UserInterfaceManagers
         }
         private void View()
         {
+            // getting the blog by id
             Blog blog = _blogRepository.Get(_blogId);
+            //displaying the title, url, and tag
             Console.WriteLine($"Title: {blog.Title}");
             Console.WriteLine($"Url: {blog.Url}");
             Console.WriteLine("Tags:");
+            //looping throught to get all tag associated with this blog
             foreach (Tag tag in blog.Tags)
             {
                 Console.WriteLine(" " + tag);
@@ -63,17 +66,23 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void AddTag()
         {
+            //getting the blog by id
             Blog blog = _blogRepository.Get(_blogId);
+            //asking which tag they want to add
             Console.WriteLine($"Which tag would you like to add to {blog.Tags}?");
+            //getting a list of all the tags and iterate through the list of tags
             List<Tag> tags = _tagRepository.GetAll();
             for (int i = 0; i < tags.Count; i++)
             {
+                //tag is equal to the index number 
                 Tag tag = tags[i];
+                //displaying the tag 
                 Console.WriteLine($" {i + 1}) {tag.Name}");
             }
             Console.Write(">");
 
             string input = Console.ReadLine();
+            // inserting the tag into the blog, If they don't pick a tag then we say invalid selection and no tag is added and it takes you back to the blog detial menu
             try
             {
                 int choice = int.Parse(input);
