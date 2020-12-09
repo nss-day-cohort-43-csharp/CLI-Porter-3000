@@ -40,21 +40,12 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     View();
                     return this;
-<<<<<<< HEAD
-                //case "2":
-                //    AddTag();
-                //    return this;
-                //case "3":
-                //    RemoveTag();
-                //    return this;
-=======
                 case "2":
                     AddTag();
                     return this;
                 case "3":
                     RemoveTag();
                     return this;
->>>>>>> 6cafcdcd217b6be959896d7abea2350816ea80aa
                 //case "4":
                 //    NoteManagement();
                 //return this;
@@ -65,16 +56,25 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
             }
         }
+      
+        private void View()
+        {
+            Post post = _postRepository.Get(_postId);
+            Console.WriteLine($"Title: {post.Title}");
+            Console.WriteLine($"Url: {post.Url}");
+            Console.WriteLine($"PublishDateTime: {post.PublishDateTime}");
+            Console.WriteLine("Tags: ");
+            foreach (Tag tag in post.tags)
+            {
+                Console.WriteLine(" " + tag);
+            }
+            Console.WriteLine();
+        }
 
-<<<<<<< HEAD
-=======
         private void AddTag()
         {
-          
             Post post = _postRepository.Get(_postId);
-           
             Console.WriteLine($"Which tag would you like to add to {post.Title}?");
-            
             List<Tag> tags = _tagRepository.GetAll();
             for (int i = 0; i < tags.Count; i++)
             {
@@ -82,8 +82,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($" {i + 1}) {tag.Name}");
             }
             Console.Write(">");
-
-            string input = Console.ReadLine();         
+            string input = Console.ReadLine();
             try
             {
                 int choice = int.Parse(input);
@@ -96,26 +95,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
->>>>>>> 6cafcdcd217b6be959896d7abea2350816ea80aa
-        private void View()
-        {
-            Post post = _postRepository.Get(_postId);
-            Console.WriteLine($"Title: {post.Title}");
-            Console.WriteLine($"Url: {post.Url}");
-            Console.WriteLine($"PublishDateTime: {post.PublishDateTime}");
-            Console.WriteLine("Tags: ");
-<<<<<<< HEAD
-            foreach (Tag tag in post.Tags)
-=======
-            foreach (Tag tag in post.tags)
->>>>>>> 6cafcdcd217b6be959896d7abea2350816ea80aa
-            {
-                Console.WriteLine(" " + tag);
-            }
-            Console.WriteLine();
-        }
-<<<<<<< HEAD
-=======
+
         private void RemoveTag()
         {
             Post post = _postRepository.Get(_postId);
@@ -139,6 +119,5 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine("Invalid Selection. Won't remove any tags.");
             }
         }
->>>>>>> 6cafcdcd217b6be959896d7abea2350816ea80aa
     }    
 }
