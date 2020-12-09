@@ -13,7 +13,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private PostRepository _postRepository;
         private AuthorRepository _authorRepository;
         private int _blogId;
-        private string tag;
+        
 
 
         public BlogDetailManager(IUserInterfaceManager parentUI, string connectionString, int blogId)
@@ -101,7 +101,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Tag tag = tags[choice - 1];
                 _blogRepository.InsertTag(blog, tag);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Invalid SELECTION. Won't add any tags.");
             }
@@ -132,7 +132,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Tag tag = tags[choice - 1];
                 _blogRepository.DeleteTag(blog.Id, tag.Id);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 Console.WriteLine("Invaild Selection. Won't be remove any tags");
             }

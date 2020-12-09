@@ -46,7 +46,8 @@ namespace TabloidCLI.UserInterfaceManagers
                     RemoveTag();
                     return this;
                 case "4":
-                //    NoteManagement();
+                    //    NoteManagement();
+                    Console.WriteLine("Coming to app version 2");
                 return this;
                 case "0":
                     return _parentUI;
@@ -79,7 +80,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Tag tag = tags[choice - 1];
                 _postRepository.InsertTag(post, tag);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Invalid SELECTION. Won't add any tags.");
             }
