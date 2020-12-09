@@ -6,7 +6,7 @@ using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
-   internal class PostDetailManager : IUserInterfaceManager
+    internal class PostDetailManager : IUserInterfaceManager
     {
         private IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
@@ -14,13 +14,13 @@ namespace TabloidCLI.UserInterfaceManagers
         private int _postId;
         //private string tag;
 
-        public PostDetailManager (IUserInterfaceManager parentUI, string connectionString,  int postId)
+        public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
             _postId = postId;
-            
+
         }
 
         public IUserInterfaceManager Execute()
@@ -49,7 +49,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "4":
                     //    NoteManagement();
                     Console.WriteLine("Coming to app version 2");
-                return this;
+                    return this;
                 case "0":
                     return _parentUI;
                 default:
@@ -121,5 +121,5 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine("Invalid Selection. Won't remove any tags.");
             }
         }
-    }    
+    }
 }

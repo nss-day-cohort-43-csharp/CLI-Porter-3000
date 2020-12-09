@@ -54,18 +54,6 @@ namespace TabloidCLI.UserInterfaceManagers
                     default:
                         Console.WriteLine("Invalid Selection");
                         return this;
-
-
-                    //case "2":
-                    //    JournalEntry entry = Choose();
-                    //    if (entry == null)
-                    //    {
-                    //        return this;
-                    //    }
-                    //    else
-                    //    {
-                    //        return new AuthorDetailManager(this, _connectionString, author.Id);
-                    //    }
             }
         }
 

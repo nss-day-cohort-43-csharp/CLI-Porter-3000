@@ -10,7 +10,6 @@ namespace TabloidCLI.Repositories
     {
         public BlogRepository(string connectionString) : base(connectionString) { }
 
-
         public Blog Get(int id)
         {
             using (SqlConnection conn = Connection)
@@ -23,7 +22,7 @@ namespace TabloidCLI.Repositories
                                            LEFT JOIN Tag tag on tag.Id = blogtag.TagId
                                            WHERE blog.id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
-           
+
                     Blog blog = null;
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -38,7 +37,7 @@ namespace TabloidCLI.Repositories
                                 Url = reader.GetString(reader.GetOrdinal("Url"))
                             };
                         }
-                        if(!reader.IsDBNull(reader.GetOrdinal("TagId")))
+                        if (!reader.IsDBNull(reader.GetOrdinal("TagId")))
                         {
                             blog.Tags.Add(new Tag()
                             {
@@ -47,29 +46,26 @@ namespace TabloidCLI.Repositories
                             });
                         }
                     }
-
                     reader.Close();
                     return blog;
                 }
-
             }
         }
 
         public List<Blog> GetAll()
         {
-            using(SqlConnection conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = "SELECT Id, Title, Url FROM Blog";
 
-
                     List<Blog> blogs = new List<Blog>();
+                    
                     SqlDataReader reader = cmd.ExecuteReader();
 
-
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         Blog blog = new Blog()
                         {
@@ -91,7 +87,7 @@ namespace TabloidCLI.Repositories
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     //Inserting a blog into the database and the database is adding an id and adding the values title and blog
                     cmd.CommandText = @"INSERT INTO Blog (Title, Url)
@@ -127,28 +123,12 @@ namespace TabloidCLI.Repositories
             }
         }
 
-
-        public void Delete(int id)
+        public void InsertTag(Blog blog, Tag tag)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using(SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"DELETE FROM Blog WHERE id = @id";
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void InsertTag(Blog blog, Tag tag)
-        {
-            using(SqlConnection conn = Connection)
-            {
-                conn.Open();
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO BlogTag (BlogId, TagId)
                                                VALUES (@blogId, @tagId)";
@@ -164,7 +144,7 @@ namespace TabloidCLI.Repositories
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"Delete FROM BlogTag
                                              WHERE BlogId = @blogId AND 
