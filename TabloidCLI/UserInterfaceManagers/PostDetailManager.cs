@@ -12,6 +12,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
         private int _postId;
+        private string tag;
 
         public PostDetailManager (IUserInterfaceManager parentUI, string connectionString,  int postId)
         {
@@ -59,12 +60,25 @@ namespace TabloidCLI.UserInterfaceManagers
 
 
         private void AddTag()
+      
+        private void View()
         {
-          
             Post post = _postRepository.Get(_postId);
-           
+            Console.WriteLine($"Title: {post.Title}");
+            Console.WriteLine($"Url: {post.Url}");
+            Console.WriteLine($"PublishDateTime: {post.PublishDateTime}");
+            Console.WriteLine("Tags: ");
+            foreach (Tag tag in post.tags)
+            {
+                Console.WriteLine(" " + tag);
+            }
+            Console.WriteLine();
+        }
+
+        private void AddTag()
+        {
+            Post post = _postRepository.Get(_postId);
             Console.WriteLine($"Which tag would you like to add to {post.Title}?");
-            
             List<Tag> tags = _tagRepository.GetAll();
             for (int i = 0; i < tags.Count; i++)
             {
@@ -72,8 +86,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($" {i + 1}) {tag.Name}");
             }
             Console.Write(">");
-
-            string input = Console.ReadLine();         
+            string input = Console.ReadLine();
             try
             {
                 int choice = int.Parse(input);
@@ -99,6 +112,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
             Console.WriteLine();
         }
+
 
         private void RemoveTag()
         {
