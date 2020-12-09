@@ -36,20 +36,6 @@ namespace TabloidCLI.UserInterfaceManagers
             string choice = Console.ReadLine();
             switch (choice)
             {
-<<<<<<< HEAD
-                //case "1":
-                //    View();
-                //    return this;
-                //case "2":
-                //    AddTag();
-                //    return this;
-                case "3":
-                    RemoveTag();
-                    return this;
-                case "4":
-                //    NoteManagement();
-                return this;
-=======
                 case "1":
                     View();
                     return this;
@@ -59,10 +45,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "3":
                     RemoveTag();
                     return this;
-                //case "4":
+                case "4":
                 //    NoteManagement();
-                //return this;
->>>>>>> main
+                return this;
                 case "0":
                     return _parentUI;
                 default:
@@ -71,15 +56,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-<<<<<<< HEAD
-        private void RemoveTag()
-        {
-            Post post = _postRepository.Get(_postId);
 
-            Console.WriteLine($"Which tag would you like to remove from {post.Title}?");
-            List<Tag> tags = post.tags;
-
-=======
         private void AddTag()
         {
           
@@ -121,22 +98,19 @@ namespace TabloidCLI.UserInterfaceManagers
             }
             Console.WriteLine();
         }
+
         private void RemoveTag()
         {
             Post post = _postRepository.Get(_postId);
             Console.WriteLine($"Which tag would you like to remove from {post.Title}?");
             List<Tag> tags = post.tags;
->>>>>>> main
             for (int i = 0; i < tags.Count; i++)
             {
                 Tag tag = tags[i];
                 Console.WriteLine($" {i + 1}) {tag.Name}");
             }
             Console.Write("> ");
-<<<<<<< HEAD
 
-=======
->>>>>>> main
             string input = Console.ReadLine();
             try
             {
