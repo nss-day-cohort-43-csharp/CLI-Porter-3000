@@ -12,11 +12,13 @@ namespace TabloidCLI.Models
         public DateTime PublishDateTime { get; set; }
         public Author Author { get; set; }
         public Blog Blog { get; set; }
-       
+        public List<Tag> tags { get; set; } = new List<Tag>();
+      
+
 
         public override string ToString()
         {
-            return $@"    {Id}) {Title} | {Url}  | {PublishDateTime}  | {Author.Id}  | {Blog.Id} )";
+            return $@"    {Id}) {Title} | {Url}  | {PublishDateTime} )";
         }
     }
 }
