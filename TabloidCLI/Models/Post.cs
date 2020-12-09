@@ -13,6 +13,7 @@ namespace TabloidCLI.Models
         public Author Author { get; set; }
         public Blog Blog { get; set; }
         public List<Tag> tags { get; set; } = new List<Tag>();
+        public IEnumerable<Tag> Tags { get; internal set; }
 
         public override string ToString()
         {

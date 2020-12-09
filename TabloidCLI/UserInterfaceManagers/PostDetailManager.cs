@@ -12,6 +12,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
         private int _postId;
+        private string tag;
 
         public PostDetailManager (IUserInterfaceManager parentUI, string connectionString,  int postId)
         {
@@ -35,9 +36,9 @@ namespace TabloidCLI.UserInterfaceManagers
             string choice = Console.ReadLine();
             switch (choice)
             {
-                //case "1":
-                //    View();
-                //    return this;
+                case "1":
+                    View();
+                    return this;
                 //case "2":
                 //    AddTag();
                 //    return this;
@@ -46,13 +47,27 @@ namespace TabloidCLI.UserInterfaceManagers
                 //    return this;
                 //case "4":
                 //    NoteManagement();
-                    //return this;
+                //return this;
                 case "0":
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
+        }
+
+        private void View()
+        {
+            Post post = _postRepository.Get(_postId);
+            Console.WriteLine($"Title: {post.Title}");
+            Console.WriteLine($"Url: {post.Url}");
+            Console.WriteLine($"PublishDateTime: {post.PublishDateTime}");
+            Console.WriteLine("Tags: ");
+            foreach (Tag tag in post.Tags)
+            {
+                Console.WriteLine(" " + tag);
+            }
+            Console.WriteLine();
         }
     }    
 }
