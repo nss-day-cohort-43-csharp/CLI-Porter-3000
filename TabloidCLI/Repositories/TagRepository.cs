@@ -204,12 +204,8 @@ namespace TabloidCLI
                     cmd.CommandText = @"SELECT post.Id,
                                                post.Title,
                                                post.Url,
-                                               post.publishDateTime,
-                                               post.AuthorId,
-                                               post.BlogId
+                                               post.publishDateTime
                                           FROM Post Post
-                                               LEFT JOIN Author on post.AuthorId = Author.Id
-                                               LEFT  JOIN Blog on post.BlogId = Blog.Id
                                                LEFT JOIN PostTag postTag on post.Id = postTag.PostId
                                                LEFT JOIN Tag tag on tag.Id = PostTag.TagId
                                          WHERE tag.Name LIKE @name";
@@ -224,27 +220,16 @@ namespace TabloidCLI
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("Url")),
-                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime"))
                         };
-                            Author author = new Author()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId"))
-                            };
-                            Blog blog = new Blog()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("BlogId"))
-                            };
                         results.Add(post);
-                    };
+                    }
 
                     reader.Close();
                     return results;
-
-                }
-                 
                 }
             }
         }
 
     }
-
+}

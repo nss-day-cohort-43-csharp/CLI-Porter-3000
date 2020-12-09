@@ -115,7 +115,6 @@ namespace TabloidCLI.UserInterfaceManagers
                 resultsAuthor.Display();
             }
 
-            
             SearchResults<Blog> resultsBlog = _tagRepository.SearchBlogs(tagName);
             // if not tag is found then user see no results on tag name else they see the blog that is connected to the tag
             if (resultsBlog.NoResultsFound)
@@ -137,7 +136,6 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 resultsPost.Display();
             }
-
         }
     }
 }
