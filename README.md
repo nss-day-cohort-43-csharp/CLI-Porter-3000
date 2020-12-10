@@ -26,6 +26,27 @@ In order to test the new business idea, we'll create a [Proof of Concept (POC)](
 
 For our POC, we will build a command line app in C# and save our data in SQL Server.
 
+
+## Contributors
+Faith Magras
+Braxton Shoop
+Abdurehman Kassa
+
+
+## Getting Started
+cd into your workspace
+type git clone and pasta the repo into the terminal
+cd into file
+make a repo on your github
+type git remote rm origin 
+pasta your repo origin into the the terminal
+to check that you changed the remote origin type in git remote -v and the remote origin should be the same repo origin you just pasted
+type git push -u origin master
+type dotnet run to run the program
+you will be presented with a menu and you can follow that menu to checkout the different parts of the program
+
+
+
 ## Client Specifications
 ### Main Menu Header - 1
 As the application user, I would like to see a pleasant greeting when I start the application because I like pleasant greetings.
@@ -532,3 +553,4 @@ Then they should be presented with a list of notes to choose from
 Given the user chooses a note
 When they enter the selection and hit enter
 Then the note should be removed from the database
+
