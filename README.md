@@ -227,7 +227,7 @@ As the application user, I get tired of boring black backgrounds, so I would lik
 
 As a non-technical person, however, I don't know what my options are. I would appreciate the team giving me some choices.
 
-*FOLLOW UP*:  In a follow up meeting, the Product Owner refined this specification to require that the font color, represented as a foreground color in the terminal, should be able to be altered. The solution agreed upon was that the app will feature a menu choice of six colors from which an end user may select a new color at will.
+_*FOLLOW UP*_:  In a follow up meeting, the Product Owner refined this specification to require that the font color, represented as a foreground color in the terminal, should be able to be altered. The solution agreed upon was that the app will feature a menu choice of six colors from which an end user may select a new color at will.
 
 ### Add Tag - 20
 As an application user I would like to be able to add a new keyword that I can use to tag a blog, author or post throughout the application so that I can have access to the keywords I think are appropriate.
@@ -267,7 +267,7 @@ Given the user chooses a post
 When they enter the selection and hit enter
 Then the tag should be removed from the database
 
-*FOLLOW UP*:  In a follow up meeting, the Product Owner clarified that deleting a tag should disassociate that tag from the Author, Blog, and Post tables.
+_*FOLLOW UP*_:  In a follow up meeting, the Product Owner clarified that deleting a tag should disassociate that tag from the Author, Blog, and Post tables.
 
 ### Author Details - 24
 As a blog connoisseur I would like to view details of a blog author so that I can refresh my memory as to who they are.
