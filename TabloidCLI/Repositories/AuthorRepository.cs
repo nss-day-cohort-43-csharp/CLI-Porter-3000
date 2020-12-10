@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
@@ -8,26 +7,30 @@ namespace TabloidCLI
 {
     public class AuthorRepository : DatabaseConnector, IRepository<Author>
     {
+
         public AuthorRepository(string connectionString) : base(connectionString) { }
 
         public List<Author> GetAll()
         {
+
             using (SqlConnection conn = Connection)
             {
+
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT id,
-                                               FirstName,
-                                               LastName,
-                                               Bio
-                                          FROM Author";
+
+                    cmd.CommandText = @"SELECT id, FirstName, LastName, Bio
+                                        FROM Author";
 
                     List<Author> authors = new List<Author>();
 
                     SqlDataReader reader = cmd.ExecuteReader();
+
                     while (reader.Read())
                     {
+
                         Author author = new Author()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
@@ -35,6 +38,7 @@ namespace TabloidCLI
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             Bio = reader.GetString(reader.GetOrdinal("Bio")),
                         };
+
                         authors.Add(author);
                     }
 
@@ -47,29 +51,29 @@ namespace TabloidCLI
 
         public Author Get(int id)
         {
+
             using (SqlConnection conn = Connection)
             {
+
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT a.Id AS AuthorId,
-                                               a.FirstName,
-                                               a.LastName,
-                                               a.Bio,
-                                               t.Id AS TagId,
-                                               t.Name
-                                          FROM Author a 
-                                               LEFT JOIN AuthorTag at on a.Id = at.AuthorId
-                                               LEFT JOIN Tag t on t.Id = at.TagId
-                                         WHERE a.id = @id";
 
+                    cmd.CommandText = @"SELECT a.Id AS AuthorId, a.FirstName, a.LastName, a.Bio, t.Id AS TagId, t.Name
+                                        FROM Author a 
+                                        LEFT JOIN AuthorTag at ON a.Id = at.AuthorId
+                                        LEFT JOIN Tag t ON t.Id = at.TagId
+                                        WHERE a.id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     Author author = null;
 
                     SqlDataReader reader = cmd.ExecuteReader();
+
                     while (reader.Read())
                     {
+
                         if (author == null)
                         {
                             author = new Author()
@@ -100,13 +104,16 @@ namespace TabloidCLI
 
         public void Insert(Author author)
         {
+
             using (SqlConnection conn = Connection)
             {
+
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Author (FirstName, LastName, Bio )
-                                                     VALUES (@firstName, @lastName, @bio)";
+                    cmd.CommandText = @"INSERT INTO Author (FirstName, LastName, Bio)
+                                        VALUES (@firstName, @lastName, @bio)";
                     cmd.Parameters.AddWithValue("@firstName", author.FirstName);
                     cmd.Parameters.AddWithValue("@lastName", author.LastName);
                     cmd.Parameters.AddWithValue("@bio", author.Bio);
@@ -116,20 +123,20 @@ namespace TabloidCLI
             }
         }
 
-
         public void Update(Author author)
         {
+
             using (SqlConnection conn = Connection)
             {
+
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Author 
-                                           SET FirstName = @firstName,
-                                               LastName = @lastName,
-                                               bio = @bio
-                                         WHERE id = @id";
 
+                    cmd.CommandText = @"UPDATE Author 
+                                        SET FirstName = @firstName, LastName = @lastName, bio = @bio
+                                        WHERE id = @id";
                     cmd.Parameters.AddWithValue("@firstName", author.FirstName);
                     cmd.Parameters.AddWithValue("@lastName", author.LastName);
                     cmd.Parameters.AddWithValue("@bio", author.Bio);
@@ -142,11 +149,15 @@ namespace TabloidCLI
 
         public void Delete(int id)
         {
+
             using (SqlConnection conn = Connection)
             {
+
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
+
                     cmd.CommandText = @" DELETE FROM Post WHERE AuthorId = @id;
                                          DELETE FROM AuthorTag WHERE AuthorId = @id;
                                          DELETE FROM Author WHERE id = @id";
@@ -159,15 +170,20 @@ namespace TabloidCLI
 
         public void InsertTag(Author author, Tag tag)
         {
+
             using (SqlConnection conn = Connection)
             {
+
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
+
                     cmd.CommandText = @"INSERT INTO AuthorTag (AuthorId, TagId)
-                                                       VALUES (@authorId, @tagId)";
+                                        VALUES (@authorId, @tagId)";
                     cmd.Parameters.AddWithValue("@authorId", author.Id);
                     cmd.Parameters.AddWithValue("@tagId", tag.Id);
+
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -175,14 +191,17 @@ namespace TabloidCLI
 
         public void DeleteTag(int authorId, int tagId)
         {
+
             using (SqlConnection conn = Connection)
             {
+
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
+
                     cmd.CommandText = @"DELETE FROM AuthorTAg 
-                                         WHERE AuthorId = @authorid AND 
-                                               TagId = @tagId";
+                                        WHERE AuthorId = @authorid AND TagId = @tagId";
                     cmd.Parameters.AddWithValue("@authorId", authorId);
                     cmd.Parameters.AddWithValue("@tagId", tagId);
 

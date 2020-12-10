@@ -1,18 +1,25 @@
 ﻿using System;
 using TabloidCLI.UserInterfaceManagers;
 
+
 namespace TabloidCLI
 {
+
     class Program
     {
+
         static void Main(string[] args)
         {
 
-            BackgroundColors backgorundColorChoice = new BackgroundColors();
-            backgorundColorChoice.ColorSelection();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("");
+            Console.Write("Welcome to Tabloid");
+            Console.WriteLine("---------------------");
 
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
+
+
             while (ui != null)
             {
                 // Each call to Execute will return the next IUserInterfaceManager we should execute
